@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://bankaya/soap/pokemon"
+           targetNamespace="http://bankaya/soap/pokemon" elementFormDefault="qualified">
+
+    <xs:element name="getPokemonNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPokemonAbilityNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBaseExperienceNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBaseExperienceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="base_experience" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getHeldItemsNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getHeldItemsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="heldItems" type="tns:heldItemDTO" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLocationNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLocationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="locationAreaEncounters" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPokemonIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="getPokemonResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="locationAreaEncounters" type="xs:string"/>
+                <xs:element name="abilities" type="tns:abilityDTO" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="base_experience" type="xs:int"/>
+                <xs:element name="forms" type="tns:dataTypeDTO" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="gameIndices" type="tns:gameIndexDTO" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="height" type="xs:int"/>
+                <xs:element name="heldItems" type="tns:heldItemDTO" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="id" type="xs:int"/>
+                <xs:element name="isDefault" type="xs:boolean"/>
+                <xs:element name="moves" type="tns:movesDTO" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="order" type="xs:int"/>
+                <xs:element name="species" type="xs:string"/>
+                <xs:element name="sprites" type="tns:spriteDTO"/>
+                <xs:element name="stats" type="tns:statDTO" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="weight" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPokemonAbilityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="abilities" type="tns:abilityDTO" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:complexType name="abilityDTO">
+        <xs:sequence>
+            <xs:element name="slot" type="xs:int"/>
+            <xs:element name="ability" type="xs:string"/>
+            <xs:element name="isHidden" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="gameIndexDTO">
+    <xs:sequence>
+        <xs:element name="gameIndex" type="xs:string"/>
+        <xs:element name="version" type="xs:string"/>
+    </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="versionDetailDTO">
+        <xs:sequence>
+            <xs:element name="rarity" type="xs:int"/>
+            <xs:element name="version" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="heldItemDTO">
+        <xs:sequence>
+            <xs:element name="item" type="xs:string"/>
+            <xs:element name="versionDetails" type="tns:versionDetailDTO" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="versionGroupDetailsDTO">
+        <xs:sequence>
+            <xs:element name="levelLearnedAt" type="xs:int"/>
+            <xs:element name="versionGroup" type="xs:string"/>
+            <xs:element name="moveLearnMethod" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="movesDTO">
+        <xs:sequence>
+            <xs:element name="move" type="xs:string"/>
+            <xs:element name="versionGroupDetails" type="tns:versionGroupDetailsDTO" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="spriteDTO">
+        <xs:sequence>
+        <xs:element name="back_default" type="xs:string"/>
+        <xs:element name="back_female" type="xs:string"/>
+        <xs:element name="back_shiny" type="xs:string"/>
+        <xs:element name="back_shiny_female" type="xs:string"/>
+        <xs:element name="front_default" type="xs:string"/>
+        <xs:element name="front_female" type="xs:string"/>
+        <xs:element name="front_shiny" type="xs:string"/>
+        <xs:element name="front_shiny_female" type="xs:string"/>
+        <xs:element name="other" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="otherDTO">
+        <xs:sequence>
+        <xs:element name="dream_world" type="tns:spriteDTO"/>
+        <xs:element name="home" type="tns:spriteDTO"/>
+        <xs:element name="official-artwork" type="tns:spriteDTO"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="statDTO">
+        <xs:sequence>
+            <xs:element name="baseStat" type="xs:int"/>
+            <xs:element name="effort" type="xs:int"/>
+            <xs:element name="stat" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="nameDTO">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="dataTypeDTO">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="language" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="effectEntryDTO">
+        <xs:sequence>
+            <xs:element name="effect" type="xs:string"/>
+            <xs:element name="short_effect" type="xs:string"/>
+            <xs:element name="language" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="effectChangeDTO">
+        <xs:sequence>
+            <xs:element name="versionGroup" type="xs:string"/>
+            <xs:element name="effectEntries" type="tns:effectEntryDTO" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="flavorTextEntryDTO">
+        <xs:sequence>
+            <xs:element name="flavorText" type="xs:string"/>
+            <xs:element name="language" type="xs:string"/>
+            <xs:element name="versionGroup" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,94 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.6'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'java-library'
+}
+
+group = 'com.bankaya'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+project.ext {
+	jaxbTargetDir = file("src/generated/java")
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src/generated/java",'src/main/java']
+		}
+		resources {
+			srcDirs = ['src/main/resources']
+		}
+	}
+}
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+configurations {
+	xsd2java
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'wsdl4j:wsdl4j'
+	implementation 'javax.xml.bind:jaxb-api:2.3.0'
+	implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
+	implementation "org.mapstruct:mapstruct:1.4.2.Final"
+	annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+	implementation 'com.h2database:h2'
+
+	xsd2java (
+			'com.sun.xml.bind:jaxb-xjc:2.3.1',
+			'com.sun.xml.bind:jaxb-impl:2.3.1',
+			'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+	)
+
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+
+task xsd2java() {
+
+	doLast {
+		jaxbTargetDir.mkdirs()
+
+		System.setProperty('javax.xml.accessExternalSchema', 'all')
+		System.setProperty('file.encoding', 'utf-8')
+		ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.xsd2java.asPath)
+		ant.jaxbTargetDir = jaxbTargetDir
+		ant.xjc(
+				destdir: '${jaxbTargetDir}',
+				package: 'com.bankaya.poke.model',
+				schema: 'src/main/resources/xsd/pokemon_schema.xsd'
+		)
+
+	}
+}
+
+compileJava.dependsOn xsd2java
